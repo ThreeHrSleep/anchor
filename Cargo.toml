@@ -19,6 +19,7 @@ edition = "2021"
 [workspace.dependencies]
 client = { path = "anchor/client" }
 qbft = { path = "anchor/qbft" }
+health_metrics = { git = "https://github.com/dknopik/lighthouse.git" , branch = "dependency-cleanup" }
 http_api = { path = "anchor/http_api" }
 http_metrics = { path = "anchor/http_metrics" }
 network = { path = "anchor/network" }
