@@ -736,7 +736,7 @@ dependencies = [
 [[package]]
 name = "bls"
 version = "0.2.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "alloy-primitives",
  "arbitrary",
@@ -744,10 +744,10 @@ dependencies = [
  "ethereum_hashing",
  "ethereum_serde_utils",
  "ethereum_ssz",
- "fixed_bytes 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "fixed_bytes 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "hex",
  "rand",
- "safe_arith 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "safe_arith 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "serde",
  "tree_hash",
  "zeroize",
@@ -1034,18 +1034,18 @@ checksum = "f46ad14479a25103f283c0f10005961cf086d8dc42205bb44c46ac563475dca6"
 [[package]]
 name = "clap_utils"
 version = "0.1.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "alloy-primitives",
  "clap",
  "dirs 3.0.2",
- "eth2_network_config 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "eth2_network_config 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "ethereum_ssz",
  "hex",
  "serde",
  "serde_json",
  "serde_yaml",
- "types 0.2.1 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "types 0.2.1 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
 ]
 
 [[package]]
@@ -1107,7 +1107,7 @@ checksum = "5b63caa9aa9397e2d9480a9b13673856c78d8ac123288526c37d7839f2a86990"
 [[package]]
 name = "compare_fields"
 version = "0.2.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "itertools 0.10.5",
 ]
@@ -1131,7 +1131,7 @@ dependencies = [
 [[package]]
 name = "compare_fields_derive"
 version = "0.2.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "quote",
  "syn 1.0.109",
@@ -1673,11 +1673,11 @@ dependencies = [
 [[package]]
 name = "directory"
 version = "0.1.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "clap",
- "clap_utils 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
- "eth2_network_config 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "clap_utils 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
+ "eth2_network_config 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
 ]
 
 [[package]]
@@ -1935,7 +1935,7 @@ dependencies = [
 [[package]]
 name = "eth2"
 version = "0.1.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "derivative",
  "eth2_keystore",
@@ -1944,29 +1944,29 @@ dependencies = [
  "ethereum_ssz_derive",
  "futures",
  "futures-util",
- "lighthouse_network 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "lighthouse_network 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "mediatype",
- "pretty_reqwest_error 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "pretty_reqwest_error 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "proto_array",
  "reqwest",
  "reqwest-eventsource",
- "sensitive_url 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "sensitive_url 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "serde",
  "serde_json",
  "slashing_protection",
  "ssz_types",
  "store",
- "types 0.2.1 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "types 0.2.1 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "zeroize",
 ]
 
 [[package]]
 name = "eth2_config"
 version = "0.2.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "paste",
- "types 0.2.1 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "types 0.2.1 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
 ]
 
 [[package]]
@@ -1981,9 +1981,9 @@ dependencies = [
 [[package]]
 name = "eth2_interop_keypairs"
 version = "0.2.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
- "bls 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "bls 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "ethereum_hashing",
  "hex",
  "num-bigint",
@@ -2020,9 +2020,9 @@ dependencies = [
 [[package]]
 name = "eth2_key_derivation"
 version = "0.1.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
- "bls 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "bls 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "num-bigint-dig",
  "ring 0.16.20",
  "sha2 0.9.9",
@@ -2032,10 +2032,10 @@ dependencies = [
 [[package]]
 name = "eth2_keystore"
 version = "0.1.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "aes 0.7.5",
- "bls 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "bls 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "eth2_key_derivation",
  "hex",
  "hmac 0.11.0",
@@ -2054,20 +2054,20 @@ dependencies = [
 [[package]]
 name = "eth2_network_config"
 version = "0.2.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "bytes",
  "discv5",
- "eth2_config 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
- "kzg 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
- "logging 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
- "pretty_reqwest_error 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "eth2_config 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
+ "kzg 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
+ "logging 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
+ "pretty_reqwest_error 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "reqwest",
- "sensitive_url 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "sensitive_url 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "serde_yaml",
  "sha2 0.9.9",
  "slog",
- "types 0.2.1 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "types 0.2.1 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "url",
  "zip",
 ]
@@ -2253,7 +2253,7 @@ dependencies = [
 [[package]]
 name = "filesystem"
 version = "0.1.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "winapi",
  "windows-acl",
@@ -2274,10 +2274,10 @@ dependencies = [
 [[package]]
 name = "fixed_bytes"
 version = "0.1.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "alloy-primitives",
- "safe_arith 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "safe_arith 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
 ]
 
 [[package]]
@@ -2557,7 +2557,7 @@ checksum = "d2fabcfbdc87f4758337ca535fb41a6d701b65693ce38287d856d1674551ec9b"
 [[package]]
 name = "gossipsub"
 version = "0.5.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "async-channel",
  "asynchronous-codec",
@@ -2687,10 +2687,10 @@ dependencies = [
 [[package]]
 name = "health_metrics"
 version = "0.1.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "eth2",
- "metrics 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "metrics 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "procfs",
  "psutil",
 ]
@@ -3309,7 +3309,7 @@ dependencies = [
 [[package]]
 name = "int_to_bytes"
 version = "0.2.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "bytes",
 ]
@@ -3464,7 +3464,7 @@ dependencies = [
 [[package]]
 name = "kzg"
 version = "0.1.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "arbitrary",
  "c-kzg",
@@ -4097,13 +4097,13 @@ dependencies = [
 [[package]]
 name = "lighthouse_network"
 version = "0.2.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "alloy-primitives",
  "alloy-rlp",
  "bytes",
  "delay_map",
- "directory 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "directory 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "dirs 3.0.2",
  "discv5",
  "either",
@@ -4111,15 +4111,15 @@ dependencies = [
  "ethereum_ssz_derive",
  "fnv",
  "futures",
- "gossipsub 0.5.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "gossipsub 0.5.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "hex",
  "itertools 0.10.5",
  "libp2p",
  "libp2p-mplex",
- "lighthouse_version 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "lighthouse_version 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "lru",
- "lru_cache 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
- "metrics 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "lru_cache 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
+ "metrics 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "parking_lot",
  "prometheus-client",
  "rand",
@@ -4132,14 +4132,14 @@ dependencies = [
  "ssz_types",
  "strum",
  "superstruct",
- "task_executor 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "task_executor 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "tiny-keccak",
  "tokio",
  "tokio-io-timeout",
  "tokio-util",
- "types 0.2.1 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "types 0.2.1 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "unsigned-varint 0.8.0",
- "unused_port 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "unused_port 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "void",
 ]
 
@@ -4195,7 +4195,7 @@ dependencies = [
 [[package]]
 name = "lighthouse_version"
 version = "0.1.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "git-version",
  "target_info",
@@ -4253,10 +4253,10 @@ checksum = "a7a70ba024b9dc04c27ea2f0c0548feb474ec5c54bba33a7f72f873a39d07b24"
 [[package]]
 name = "logging"
 version = "0.2.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "chrono",
- "metrics 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "metrics 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "parking_lot",
  "serde",
  "serde_json",
@@ -4315,7 +4315,7 @@ dependencies = [
 [[package]]
 name = "lru_cache"
 version = "0.1.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "fnv",
 ]
@@ -4388,12 +4388,12 @@ dependencies = [
 [[package]]
 name = "merkle_proof"
 version = "0.2.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "alloy-primitives",
  "ethereum_hashing",
- "fixed_bytes 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
- "safe_arith 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "fixed_bytes 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
+ "safe_arith 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
 ]
 
 [[package]]
@@ -4444,7 +4444,7 @@ dependencies = [
 [[package]]
 name = "metrics"
 version = "0.2.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "prometheus",
 ]
@@ -5157,10 +5157,10 @@ dependencies = [
 [[package]]
 name = "pretty_reqwest_error"
 version = "0.1.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "reqwest",
- "sensitive_url 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "sensitive_url 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
 ]
 
 [[package]]
@@ -5322,15 +5322,15 @@ dependencies = [
 [[package]]
 name = "proto_array"
 version = "0.2.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "ethereum_ssz",
  "ethereum_ssz_derive",
- "safe_arith 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "safe_arith 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "serde",
  "serde_yaml",
  "superstruct",
- "types 0.2.1 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "types 0.2.1 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
 ]
 
 [[package]]
@@ -6017,7 +6017,7 @@ checksum = "f3cb5ba0dc43242ce17de99c180e96db90b235b8a9fdc9543c96d2209116bd9f"
 [[package]]
 name = "safe_arith"
 version = "0.1.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 
 [[package]]
 name = "safe_arith"
@@ -6148,7 +6148,7 @@ dependencies = [
 [[package]]
 name = "sensitive_url"
 version = "0.1.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "serde",
  "url",
@@ -6351,7 +6351,7 @@ dependencies = [
 [[package]]
 name = "slashing_protection"
 version = "0.1.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "arbitrary",
  "ethereum_serde_utils",
@@ -6362,7 +6362,7 @@ dependencies = [
  "serde",
  "serde_json",
  "tempfile",
- "types 0.2.1 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "types 0.2.1 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
 ]
 
 [[package]]
@@ -6578,27 +6578,27 @@ checksum = "a8f112729512f8e442d81f95a8a7ddf2b7c6b8a1a6f509a95864142b30cab2d3"
 [[package]]
 name = "state_processing"
 version = "0.2.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "arbitrary",
- "bls 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "bls 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "derivative",
  "ethereum_hashing",
  "ethereum_ssz",
  "ethereum_ssz_derive",
- "int_to_bytes 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "int_to_bytes 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "integer-sqrt",
  "itertools 0.10.5",
- "merkle_proof 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
- "metrics 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "merkle_proof 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
+ "metrics 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "rand",
  "rayon",
- "safe_arith 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "safe_arith 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "smallvec",
  "ssz_types",
- "test_random_derive 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "test_random_derive 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "tree_hash",
- "types 0.2.1 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "types 0.2.1 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
 ]
 
 [[package]]
@@ -6610,20 +6610,20 @@ checksum = "a2eb9349b6444b326872e140eb1cf5e7c522154d69e7a0ffb0fb81c06b37543f"
 [[package]]
 name = "store"
 version = "0.2.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
- "bls 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "bls 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "db-key",
- "directory 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "directory 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "ethereum_ssz",
  "ethereum_ssz_derive",
  "itertools 0.10.5",
  "leveldb",
- "logging 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "logging 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "lru",
- "metrics 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "metrics 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "parking_lot",
- "safe_arith 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "safe_arith 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "serde",
  "slog",
  "sloggers",
@@ -6631,7 +6631,7 @@ dependencies = [
  "state_processing",
  "strum",
  "superstruct",
- "types 0.2.1 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "types 0.2.1 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "xdelta3",
  "zstd 0.13.2",
 ]
@@ -6693,11 +6693,11 @@ dependencies = [
 [[package]]
 name = "swap_or_not_shuffle"
 version = "0.2.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "alloy-primitives",
  "ethereum_hashing",
- "fixed_bytes 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "fixed_bytes 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
 ]
 
 [[package]]
@@ -6828,12 +6828,12 @@ checksum = "c63f48baada5c52e65a29eef93ab4f8982681b67f9e8d29c7b05abcfec2b9ffe"
 [[package]]
 name = "task_executor"
 version = "0.1.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "async-channel",
  "futures",
- "logging 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
- "metrics 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "logging 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
+ "metrics 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "slog",
  "sloggers",
  "tokio",
@@ -6891,7 +6891,7 @@ dependencies = [
 [[package]]
 name = "test_random_derive"
 version = "0.2.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "quote",
  "syn 1.0.109",
@@ -7312,28 +7312,28 @@ checksum = "42ff0bf0c66b8238c6f3b578df37d0b7848e55df8577b3f74f92a69acceeb825"
 [[package]]
 name = "types"
 version = "0.2.1"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
  "alloy-primitives",
  "alloy-rlp",
  "arbitrary",
- "bls 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
- "compare_fields 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
- "compare_fields_derive 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "bls 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
+ "compare_fields 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
+ "compare_fields_derive 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "derivative",
- "eth2_interop_keypairs 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "eth2_interop_keypairs 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "ethereum_hashing",
  "ethereum_serde_utils",
  "ethereum_ssz",
  "ethereum_ssz_derive",
- "fixed_bytes 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "fixed_bytes 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "hex",
- "int_to_bytes 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "int_to_bytes 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "itertools 0.10.5",
- "kzg 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "kzg 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "log",
  "maplit",
- "merkle_proof 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "merkle_proof 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "metastruct",
  "milhouse",
  "parking_lot",
@@ -7343,7 +7343,7 @@ dependencies = [
  "regex",
  "rpds",
  "rusqlite",
- "safe_arith 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "safe_arith 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "serde",
  "serde_json",
  "serde_yaml",
@@ -7351,9 +7351,9 @@ dependencies = [
  "smallvec",
  "ssz_types",
  "superstruct",
- "swap_or_not_shuffle 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "swap_or_not_shuffle 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "tempfile",
- "test_random_derive 0.2.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "test_random_derive 0.2.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "tree_hash",
  "tree_hash_derive",
 ]
@@ -7573,9 +7573,9 @@ checksum = "8ecb6da28b8a351d773b68d5825ac39017e680750f980f3a1a85cd8dd28a47c1"
 [[package]]
 name = "unused_port"
 version = "0.1.0"
-source = "git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
+source = "git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup#39b5dfd1d277ac4ea4b5ac90f60f34bf0f937ca6"
 dependencies = [
- "lru_cache 0.1.0 (git+https://github.com/dknopik/lighthouse.git?branch=dependency-cleanup)",
+ "lru_cache 0.1.0 (git+https://github.com/dknopik/lighthouse?branch=dependency-cleanup)",
  "parking_lot",
 ]
 
