@@ -59,6 +59,7 @@ eth2 = { git = "https://github.com/sigp/lighthouse", rev = "b71b5f2" }
 eth2_config = { git = "https://github.com/sigp/lighthouse", rev = "b71b5f2" }
 eth2_network_config = { git = "https://github.com/sigp/lighthouse", rev = "b71b5f2" }
 health_metrics = { git = "https://github.com/sigp/lighthouse", rev = "b71b5f2" }
+system_health = { git = "https://github.com/sigp/lighthouse", rev = "b71b5f2" }
 lighthouse_network = { git = "https://github.com/sigp/lighthouse", rev = "b71b5f2" }
 metrics = { git = "https://github.com/sigp/lighthouse", rev = "b71b5f2" }
 safe_arith = { git = "https://github.com/sigp/lighthouse", rev = "b71b5f2" }

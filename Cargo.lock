@@ -3719,9 +3719,13 @@ version = "0.1.0"
 dependencies = [
  "api_types",
  "axum",
+ "eth2",
+ "health_metrics",
+ "processor",
  "serde",
  "serde_json",
  "slot_clock",
+ "system_health",
  "task_executor",
  "tokio",
  "tracing",
@@ -5523,6 +5527,15 @@ checksum = "d273983c5a657a70a3e8f2a01329822f3b8c8172b73826411a55751e404a0a4a"
 dependencies = [
  "memchr",
  "minimal-lexical",
+]
+
+[[package]]
+name = "ntapi"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e8a3895c6391c39d7fe7ebc444a87eb2991b2a0bc718fdabd071eec617fc68e4"
+dependencies = [
+ "winapi",
 ]
 
 [[package]]
@@ -7868,6 +7881,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "sysinfo"
+version = "0.26.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5c18a6156d1f27a9592ee18c1a846ca8dd5c258b7179fc193ae87c74ebb666f5"
+dependencies = [
+ "cfg-if",
+ "core-foundation-sys",
+ "libc",
+ "ntapi",
+ "once_cell",
+ "rayon",
+ "winapi",
+]
+
+[[package]]
 name = "system-configuration"
 version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -7907,6 +7935,18 @@ checksum = "8e1d1b10ced5ca923a1fcb8d03e96b8d3268065d724548c0211415ff6ac6bac4"
 dependencies = [
  "core-foundation-sys",
  "libc",
+]
+
+[[package]]
+name = "system_health"
+version = "0.1.0"
+source = "git+https://github.com/sigp/lighthouse?rev=b71b5f2#b71b5f223106d7219f266b419482ec4007686202"
+dependencies = [
+ "lighthouse_network",
+ "parking_lot",
+ "serde",
+ "sysinfo",
+ "types",
 ]
 
 [[package]]
