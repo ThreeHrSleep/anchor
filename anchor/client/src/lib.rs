@@ -446,7 +446,7 @@ impl Client {
         );
 
         // Start the p2p network
-        let network = Network::try_new(
+        let mut network = Network::try_new(
             &config.network,
             subnet_tracker,
             network_rx,
@@ -456,6 +456,8 @@ impl Client {
         )
         .await
         .map_err(|e| format!("Unable to start network: {e}"))?;
+
+        info!("Starting network, candidate peers: {:?}", network.get_candidate_peers());
         // Spawn the network listening task
         executor.spawn(network.run(), "network");
 
