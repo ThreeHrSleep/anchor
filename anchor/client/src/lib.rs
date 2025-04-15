@@ -167,10 +167,20 @@ impl Client {
                 // network: None,
                 duties_service: None,
             }));
-            if let Err(error) = http_api::run(config.http_api, http_api_shared_state.clone()).await {
-                error!(error, "Failed to run HTTP API");
-                return Err("HTTP API Failed".to_string());
-            }
+
+            let api_state_clone = http_api_shared_state.clone();
+            let api_config = config.http_api.clone();
+
+            executor.spawn(
+                async move {
+                    info!("Starting HTTP API server");
+                    if let Err(error) = http_api::run(api_config, api_state_clone).await {
+                        error!(error, "Failed to run HTTP API");
+                    }
+                },
+                "http-api-server",
+            );
+            
             Some(http_api_shared_state)
         } else {
             info!("HTTP API server is disabled");
