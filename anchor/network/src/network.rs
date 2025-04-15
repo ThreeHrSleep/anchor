@@ -19,6 +19,7 @@ use libp2p::{
     swarm::SwarmEvent,
     Multiaddr, PeerId, Swarm, SwarmBuilder, TransportError,
 };
+use peer_manager::PeerRecord;
 use lighthouse_network::{
     discovery::DiscoveredPeers,
     discv5::enr::k256::sha2::{Digest, Sha256},
@@ -329,6 +330,9 @@ impl<R: MessageReceiver> Network<R> {
                 debug!(%peer_id, ?error, "Handshake failed");
             }
         }
+    }
+    pub fn get_candidate_peers(&mut self) -> Vec<(&PeerId, &PeerRecord<Enr>)> {
+        self.peer_manager().candidate_peers()
     }
 }
 

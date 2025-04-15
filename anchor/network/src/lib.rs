@@ -6,7 +6,7 @@ mod discovery;
 mod handshake;
 mod keypair_utils;
 mod network;
-mod peer_manager;
+pub mod peer_manager;
 mod transport;
 pub use config::Config;
 pub use lighthouse_network::{ListenAddr, ListenAddress};
