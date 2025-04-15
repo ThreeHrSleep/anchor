@@ -801,13 +801,21 @@ dependencies = [
 name = "anchor_http_api"
 version = "0.1.0"
 dependencies = [
+ "anchor_validator_store",
  "api_types",
  "axum",
+ "eth2",
+ "message_receiver",
+ "network 0.1.0",
+ "parking_lot",
  "serde",
+ "serde_json",
  "slot_clock",
  "task_executor",
  "tokio",
  "tracing",
+ "types",
+ "validator_services",
  "version",
 ]
 

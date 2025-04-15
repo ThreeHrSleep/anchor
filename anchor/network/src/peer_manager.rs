@@ -4,7 +4,7 @@ use std::{
     time::Duration,
 };
 
-use discv5::{libp2p_identity::PeerId, multiaddr::Multiaddr};
+pub use discv5::{libp2p_identity::PeerId, multiaddr::Multiaddr};
 use libp2p::{
     connection_limits,
     connection_limits::ConnectionLimits,
@@ -17,7 +17,7 @@ use libp2p::{
     },
 };
 use lighthouse_network::EnrExt;
-use peer_store::{
+pub use peer_store::{
     memory_store,
     memory_store::{MemoryStore, PeerRecord},
     Store,
@@ -29,7 +29,6 @@ use tokio::time::{interval, MissedTickBehavior};
 use tracing::{debug, info};
 
 use crate::{discovery, Config, Enr};
-
 const MIN_PEERS_PER_SUBNET: usize = 6;
 
 const PEER_OVERDIAL_FACTOR: usize = 2;
@@ -193,7 +192,7 @@ impl PeerManager {
         (!actions.discover.is_empty() || !actions.dial.is_empty()).then_some(actions)
     }
 
-    fn candidate_peers(&self) -> Vec<(&PeerId, &PeerRecord<Enr>)> {
+    pub fn candidate_peers(&self) -> Vec<(&PeerId, &PeerRecord<Enr>)> {
         let mut peers = self
             .peer_store
             .store()
