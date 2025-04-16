@@ -26,12 +26,12 @@ use eth2::{
     BeaconNodeHttpClient, Timeouts,
 };
 use keygen::{encryption::decrypt, run_keygen, Keygen};
+use message_receiver::MessageReceiver;
 use message_receiver::NetworkMessageReceiver;
 use message_sender::{impostor::ImpostorMessageSender, MessageSender, NetworkMessageSender};
 use message_validator::Validator;
-use network::Network;
 use network::peer_manager::PeerManager;
-use message_receiver::MessageReceiver;
+use network::Network;
 use openssl::{pkey::Private, rsa::Rsa};
 use parking_lot::RwLock;
 use qbft_manager::QbftManager;
@@ -83,7 +83,10 @@ pub struct Client {}
 
 impl Client {
     /// Runs the Anchor Client
-    pub async fn run<E: EthSpec/* ,R: MessageReceiver*/>(executor: TaskExecutor, config: Config) -> Result<(), String> {
+    pub async fn run<E: EthSpec /* ,R: MessageReceiver*/>(
+        executor: TaskExecutor,
+        config: Config,
+    ) -> Result<(), String> {
         // Attempt to raise soft fd limit. The behavior is OS specific:
         // `linux` - raise soft fd limit to hard
         // `macos` - raise soft fd limit to `min(kernel limit, hard fd limit)`
@@ -155,7 +158,7 @@ impl Client {
 
         // Optionally run the http_api server
         let http_api_shared_state = if config.http_api.enabled {
-            let http_api_shared_state = Arc::new(RwLock::new(http_api::Shared::<E/* ,R*/> {
+            let http_api_shared_state = Arc::new(RwLock::new(http_api::Shared::<E /* ,R*/> {
                 // network: None,
                 database_state: None,
                 duties_service: None,
@@ -167,13 +170,13 @@ impl Client {
             executor.spawn(
                 async move {
                     info!("Starting HTTP API server");
-                    if let Err(error) = http_api::run(api_config,api_state_clone).await {
+                    if let Err(error) = http_api::run(api_config, api_state_clone).await {
                         error!(error, "Failed to run HTTP API");
                     }
                 },
                 "http-api-server",
             );
-            
+
             Some(http_api_shared_state)
         } else {
             info!("HTTP API server is disabled");
@@ -467,11 +470,12 @@ impl Client {
         .await
         .map_err(|e| format!("Unable to start network: {e}"))?;
 
-        info!("Starting network, candidate peers: {:?}", network.get_candidate_peers());
+        info!(
+            "Starting network, candidate peers: {:?}",
+            network.get_candidate_peers()
+        );
         // Spawn the network listening task
         executor.spawn(network.run(), "network");
-
-       
 
         let validator_store = AnchorValidatorStore::<_, E>::new(
             database.watch(),
@@ -501,12 +505,6 @@ impl Client {
         // Update the metrics server.
         if let Some(ctx) = &http_metrics_shared_state {
             ctx.write().genesis_time = Some(genesis_time);
-            ctx.write().duties_service = Some(duties_service.clone());
-        }
-
-        if let Some(ctx) = &http_api_shared_state {
-            // ctx.write().network = Some(network);
-            ctx.write().database_state = Some(database.watch());
             ctx.write().duties_service = Some(duties_service.clone());
         }
 
@@ -589,6 +587,11 @@ impl Client {
             .start_update_service(&spec)
             .map_err(|e| format!("Unable to start preparation service: {}", e))?;
 
+        if let Some(ctx) = &http_api_shared_state {
+            // ctx.write().network = Some(network);
+            ctx.write().database_state = Some(database.watch());
+            ctx.write().duties_service = Some(duties_service.clone());
+        }
         // TODO: reuse this from lighthouse as soon as tracing is merged
         // spawn_notifier(self).map_err(|e| format!("Failed to start notifier: {}", e))?;
         //

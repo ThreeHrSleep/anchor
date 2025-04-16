@@ -19,12 +19,12 @@ use libp2p::{
     swarm::SwarmEvent,
     Multiaddr, PeerId, Swarm, SwarmBuilder, TransportError,
 };
-use peer_manager::PeerRecord;
 use lighthouse_network::{
     discovery::DiscoveredPeers,
     discv5::enr::k256::sha2::{Digest, Sha256},
 };
 use message_receiver::{MessageReceiver, Outcome};
+use peer_manager::PeerRecord;
 use ssv_types::domain_type::DomainType;
 use subnet_tracker::{SubnetEvent, SubnetId};
 use task_executor::TaskExecutor;
