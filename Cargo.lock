@@ -804,6 +804,7 @@ dependencies = [
  "anchor_validator_store",
  "api_types",
  "axum",
+ "database",
  "eth2",
  "message_receiver",
  "network 0.1.0",

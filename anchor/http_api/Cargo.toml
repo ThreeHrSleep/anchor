@@ -21,3 +21,4 @@ serde_json = {workspace = true }
 eth2 = { workspace = true}
 network = { workspace = true }
 message_receiver = { workspace = true }
+database = { workspace = true }

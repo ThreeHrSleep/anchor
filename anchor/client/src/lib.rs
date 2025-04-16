@@ -165,6 +165,7 @@ impl Client {
         let http_api_shared_state = if config.http_api.enabled {
             let http_api_shared_state = Arc::new(RwLock::new(http_api::Shared::<E/* ,R*/> {
                 // network: None,
+                database_state: None,
                 duties_service: None,
             }));
 
@@ -174,7 +175,7 @@ impl Client {
             executor.spawn(
                 async move {
                     info!("Starting HTTP API server");
-                    if let Err(error) = http_api::run(api_config, api_state_clone).await {
+                    if let Err(error) = http_api::run(api_config,api_state_clone).await {
                         error!(error, "Failed to run HTTP API");
                     }
                 },
@@ -496,6 +497,7 @@ impl Client {
 
         if let Some(ctx) = &http_api_shared_state {
             // ctx.write().network = Some(network);
+            ctx.write().database_state = Some(database.watch());
             ctx.write().duties_service = Some(duties_service.clone());
         }
 
