@@ -63,13 +63,18 @@ async fn get_validators<E: EthSpec>(
 ) -> Body {
     let shared = shared_state.read(); 
 
-    if let Some(duties_service) = &shared.duties_service {
+    if let Some(database_state) = &shared.database_state {
+        let state_ref = database_state.borrow();
+        let validators = state_ref.metadata().values().collect::<Vec<_>>();
+        let num_validators = validators.len();
+        
+        Body::new(num_validators.to_string())
+        // if let Some(duties_service) = &shared.duties_service {
         // let validators = duties_service.validator_store;
         // let num_validators = duties_service::ValidatorStore::num_voting_validators(&validators); 
 
         // let body = serde_json::to_string(&num_validators).unwrap();
         // Body::new(body)
-        Body::new("uwu".to_string())
     } else {
         Body::new("nothing".to_string())
     }
