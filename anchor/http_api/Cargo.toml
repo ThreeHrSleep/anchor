@@ -17,3 +17,15 @@ task_executor = { workspace = true }
 tokio = { workspace = true }
 tracing = { workspace = true }
 version = { workspace = true }
+types = { workspace = true }
+validator_services = { workspace = true }
+http_metrics = { workspace = true }
+anchor_validator_store = { workspace = true }
+parking_lot = { workspace = true }
+serde_json = {workspace = true }
+ssv_types = { workspace = true }
+eth2 = { workspace = true}
+network = { workspace = true }
+message_receiver = { workspace = true }
+database = { workspace = true }
+hex = { workspace = true }
