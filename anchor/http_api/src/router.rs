@@ -10,6 +10,7 @@ use crate::Shared;
 use network::{peer_manager, Enr};
 use network::peer_manager::PeerRecord;
 use version::version_with_platform;
+use ssv_types::ValidatorMetadata;
 use eth2::types::{PeersData};
 use crate::PeerId;
 use message_receiver::MessageReceiver;
@@ -58,24 +59,67 @@ async fn get_version() -> Json<GenericResponse<VersionData>> {
 
 // }
 
+// async fn get_peers<E: EthSpec>(
+//     shared_state: Arc<RwLock<Shared<E>>>,
+// ) -> Body {
+//     let shared = shared_state.read();
+//     if let Some(database_state) = &shared.database_state { 
+//         let state_ref = database_state.borrow(); 
+//         let peers = state_ref.m
+//     }
+//     Body::new(peers.len().to_string())
+// }
+#[derive(serde::Serialize)]
+struct ValidatorResponse {
+    public_key: String,
+    cluster_id: String,
+    index: Option<usize>,
+    graffiti: String,
+}
+fn validator_to_response(validator: &ValidatorMetadata) -> ValidatorResponse {
+    ValidatorResponse {
+        public_key: validator.public_key.to_string(),
+        cluster_id: format!("{:?}", validator.cluster_id),
+        index: validator.index.map(|i| i.0),
+        graffiti: hex::encode(validator.graffiti.0),
+    }
+}
+
 async fn get_validators<E: EthSpec>(
     shared_state: Arc<RwLock<Shared<E>>>,
-) -> Body {
+) -> Json<GenericResponse<Vec<ValidatorResponse>>> {
     let shared = shared_state.read(); 
 
     if let Some(database_state) = &shared.database_state {
         let state_ref = database_state.borrow();
-        let validators = state_ref.metadata().values().collect::<Vec<_>>();
-        let num_validators = validators.len();
+        let validators = state_ref.metadata().values()
+            .map(|v| validator_to_response(v))
+            .collect::<Vec<_>>();
         
-        Body::new(num_validators.to_string())
-        // if let Some(duties_service) = &shared.duties_service {
-        // let validators = duties_service.validator_store;
-        // let num_validators = duties_service::ValidatorStore::num_voting_validators(&validators); 
-
-        // let body = serde_json::to_string(&num_validators).unwrap();
-        // Body::new(body)
+        Json(GenericResponse::from(validators))
     } else {
-        Body::new("nothing".to_string())
+        Json(GenericResponse::from(Vec::new()))
     }
 }
+    
+// async fn get_validators<E: EthSpec>(
+//     shared_state: Arc<RwLock<Shared<E>>>,
+// ) -> Body {
+//     let shared = shared_state.read(); 
+
+//     if let Some(database_state) = &shared.database_state {
+//         let state_ref = database_state.borrow();
+//         let validators = state_ref.metadata().values().collect::<Vec<_>>();
+//         let num_validators = validators.len();
+        
+//         Body::new(num_validators.to_string())
+//         // if let Some(duties_service) = &shared.duties_service {
+//         // let validators = duties_service.validator_store;
+//         // let num_validators = duties_service::ValidatorStore::num_voting_validators(&validators); 
+
+//         // let body = serde_json::to_string(&num_validators).unwrap();
+//         // Body::new(body)
+//     } else {
+//         Body::new("nothing".to_string())
+//     }
+// }
