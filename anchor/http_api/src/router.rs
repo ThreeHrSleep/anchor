@@ -35,6 +35,13 @@ pub fn new<E: EthSpec /*R: MessageReceiver*/>(
                 move || async move { get_validators(shared_state).await }
             }),
         )
+        .route(
+            "/anchor/validators2",
+            get({
+                let shared_state = shared_state.clone();
+                move || async move { get_validators_2(shared_state).await }
+            }),
+        )
 }
 
 // Temporary return value.
@@ -108,24 +115,24 @@ async fn get_validators<E: EthSpec>(
     }
 }
 
-// async fn get_validators<E: EthSpec>(
-//     shared_state: Arc<RwLock<Shared<E>>>,
-// ) -> Body {
-//     let shared = shared_state.read();
+async fn get_validators_2<E: EthSpec>(
+    shared_state: Arc<RwLock<Shared<E>>>,
+) -> Body {
+    let shared = shared_state.read();
 
-//     if let Some(database_state) = &shared.database_state {
-//         let state_ref = database_state.borrow();
-//         let validators = state_ref.metadata().values().collect::<Vec<_>>();
-//         let num_validators = validators.len();
+    if let Some(database_state) = &shared.database_state {
+        let state_ref = database_state.borrow();
+        let validators = state_ref.metadata().values().collect::<Vec<_>>();
+        let num_validators = validators.len();
 
-//         Body::new(num_validators.to_string())
-//         // if let Some(duties_service) = &shared.duties_service {
-//         // let validators = duties_service.validator_store;
-//         // let num_validators = duties_service::ValidatorStore::num_voting_validators(&validators);
+        Body::new(num_validators.to_string())
+        // if let Some(duties_service) = &shared.duties_service {
+        // let validators = duties_service.validator_store;
+        // let num_validators = duties_service::ValidatorStore::num_voting_validators(&validators);
 
-//         // let body = serde_json::to_string(&num_validators).unwrap();
-//         // Body::new(body)
-//     } else {
-//         Body::new("nothing".to_string())
-//     }
-// }
+        // let body = serde_json::to_string(&num_validators).unwrap();
+        // Body::new(body)
+    } else {
+        Body::new("nothing".to_string())
+    }
+}
