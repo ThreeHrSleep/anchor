@@ -85,14 +85,14 @@ struct ValidatorResponse {
     public_key: String,
     cluster_id: String,
     index: Option<usize>,
-    graffiti: String,
+    // graffiti: String,
 }
 fn validator_to_response(validator: &ValidatorMetadata) -> ValidatorResponse {
     ValidatorResponse {
         public_key: validator.public_key.to_string(),
         cluster_id: format!("{:?}", validator.cluster_id),
         index: validator.index.map(|i| i.0),
-        graffiti: hex::encode(validator.graffiti.0),
+        // graffiti: hex::encode(validator.graffiti.0),
     }
 }
 
