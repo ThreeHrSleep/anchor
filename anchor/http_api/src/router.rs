@@ -1,14 +1,24 @@
 //! The routes for the HTTP API
 
-use api_types::{GenericResponse, VersionData};
-use axum::{routing::get, Json, Router};
+use std::sync::Arc;
+
+use api_types::{GenericResponse, ValidatorData, VersionData, ClusterData};
+use axum::{extract::State, routing::get, Json, Router};
+use parking_lot::RwLock;
 use version::version_with_platform;
+
+
+use crate::Shared;
 /// Creates all the routes for HTTP API
-pub fn new() -> Router {
+pub fn new(shared_state: Arc<RwLock<Shared>>) -> Router {
     // Default route
     Router::new()
         .route("/", get(root))
         .route("/anchor/version", get(get_version))
+        .route("/anchor/validators", get(get_validators))       
+        .route("/anchor/clusters", get(get_clusters))
+        .with_state(shared_state)
+
 }
 
 // Temporary return value.
@@ -20,4 +30,56 @@ async fn get_version() -> Json<GenericResponse<VersionData>> {
     Json(GenericResponse::from(VersionData {
         version: version_with_platform(),
     }))
+}
+
+async fn get_validators(
+    State(shared_state): State<Arc<RwLock<Shared>>>,
+) -> Json<GenericResponse<Vec<ValidatorData>>> {
+    if let Some(database_state) = &shared_state.read().database_state {
+        let validators = database_state
+            .borrow()
+            .metadata()
+            .values()
+            .map(|v| ValidatorData {
+                public_key: v.public_key.to_string(),
+                cluster_id: format!("{:?}", v.cluster_id),
+                index: v.index.map(|i| i.0),
+                graffiti: v.graffiti.as_utf8_lossy(),
+            })
+            .collect::<Vec<_>>();
+
+        Json(GenericResponse::from(validators))
+    } else {
+        Json(GenericResponse::from(Vec::new()))
+    }
+}
+
+async fn get_clusters(
+    State(shared_state): State<Arc<RwLock<Shared>>>,
+) -> Json<GenericResponse<Vec<ClusterData>>> {
+    if let Some(database_state) = &shared_state.read().database_state {
+        let clusters = database_state
+            .borrow()
+            .clusters()
+            .values()
+            .map(|cluster| {
+                let operator_ids = cluster.cluster_members
+                    .iter()
+                    .map(|op_id| op_id.0)
+                    .collect();
+                
+                ClusterData {
+                    cluster_id: format!("{:?}", cluster.cluster_id),
+                    owner: cluster.owner.to_string(),
+                    fee_recipient: cluster.fee_recipient.to_string(),
+                    liquidated: cluster.liquidated,
+                    cluster_members: operator_ids,
+                }
+            })
+            .collect::<Vec<_>>();
+
+        Json(GenericResponse::from(clusters))
+    } else {
+        Json(GenericResponse::from(Vec::new()))
+    }
 }
