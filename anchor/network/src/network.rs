@@ -293,7 +293,7 @@ impl<R: MessageReceiver> Network<R> {
         }
     }
 
-    fn peer_manager(&mut self) -> &mut PeerManager {
+    pub fn peer_manager(&mut self) -> &mut PeerManager {
         &mut self.swarm.behaviour_mut().peer_manager
     }
 

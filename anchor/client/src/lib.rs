@@ -154,6 +154,7 @@ impl Client {
         // Optionally run the http_api server
         let http_api_shared_state = Arc::new(RwLock::new(http_api::Shared {
             database_state: None,
+            peers: None,
         }));
         let state = http_api_shared_state.clone();
 
@@ -444,7 +445,7 @@ impl Client {
         );
 
         // Start the p2p network
-        let network = Network::try_new::<E>(
+        let mut network = Network::try_new::<E>(
             &config.network,
             subnet_tracker,
             network_rx,
@@ -455,9 +456,16 @@ impl Client {
         )
         .await
         .map_err(|e| format!("Unable to start network: {e}"))?;
+
+        let peers = network.peer_manager().connected.clone();
+
+        // let peer_manager = Arc::new(RwLock::new(
+        //     network.peer_manager()
+        // ));
+
         // Spawn the network listening task
         executor.spawn(network.run(), "network");
-
+       
         let validator_store = AnchorValidatorStore::<_, E>::new(
             database.watch(),
             signature_collector,
@@ -568,7 +576,9 @@ impl Client {
             .start_update_service(&spec)
             .map_err(|e| format!("Unable to start preparation service: {}", e))?;
 
-        http_api_shared_state.write().database_state = Some(database.watch());
+            http_api_shared_state.write().database_state = Some(database.watch());
+            http_api_shared_state.write().peers = Some(peers);
+
         // TODO: reuse this from lighthouse
         // https://github.com/sigp/anchor/issues/251
         // spawn_notifier(self).map_err(|e| format!("Failed to start notifier: {}", e))?;

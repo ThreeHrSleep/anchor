@@ -1376,6 +1376,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "axum-macros"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "604fde5e028fea851ce1d8570bbdc034bec850d157f7569d10f347d06808c05c"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.100",
+]
+
+[[package]]
 name = "backtrace"
 version = "0.3.74"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3760,8 +3771,12 @@ version = "0.1.0"
 dependencies = [
  "api_types",
  "axum",
+ "axum-macros",
  "database",
+ "discv5",
  "hex",
+ "message_receiver",
+ "network",
  "parking_lot",
  "serde",
  "serde_json",

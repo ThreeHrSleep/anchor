@@ -49,10 +49,11 @@ const MIN_OUTBOUND_ONLY_FACTOR: f32 = 0.2;
 /// dialing priority peers we need for validator duties.
 const PRIORITY_PEER_EXCESS: f32 = 0.2;
 
+
 pub struct PeerManager {
     peer_store: peer_store::Behaviour<MemoryStore<Enr>>,
     connection_limits: connection_limits::Behaviour,
-    connected: HashSet<PeerId>,
+    pub connected: HashSet<PeerId>,
     needed_subnets: HashSet<SubnetId>,
     target_peers: usize,
     max_with_priority_peers: usize,
