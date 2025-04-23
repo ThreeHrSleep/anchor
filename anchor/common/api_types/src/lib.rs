@@ -13,12 +13,12 @@ pub struct ValidatorData {
     pub graffiti: String,
 }
 
-// #[derive(Serialize)]
-// pub struct PeerData {
-//     pub enr: String,
-//     pub peer_id: String,
-//     pub addresses: Vec<String>,
-// }
+#[derive(Serialize)]
+pub struct PeerData {
+    pub enr: String,
+    pub peer_id: String,
+    pub addresses: Vec<String>,
+}
 
 #[derive(Serialize)]
 pub struct GenericResponse<T> {
