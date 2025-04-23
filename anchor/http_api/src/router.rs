@@ -2,9 +2,9 @@
 
 use std::sync::Arc;
 
-use api_types::{GenericResponse, ValidatorData, VersionData};
-use discv5::{libp2p_identity::PeerId};
+use api_types::{GenericResponse, PeerData, ValidatorData, VersionData};
 use axum::{extract::State, routing::get, Json, Router};
+use network::peer_manager::PeerManager;
 use parking_lot::RwLock;
 use version::version_with_platform;
 
@@ -51,7 +51,7 @@ async fn get_validators(
         Json(GenericResponse::from(Vec::new()))
     }
 }
-#[axum_macros::debug_handler]
+// #[axum_macros::debug_handler]
 async fn get_peers(
     State(shared_state): State<Arc<RwLock<Shared>>>,
 ) -> Json<GenericResponse<Vec<String>>> {

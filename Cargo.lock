@@ -5568,6 +5568,7 @@ dependencies = [
 name = "network"
 version = "0.1.0"
 dependencies = [
+ "api_types",
  "async-trait",
  "dirs 6.0.0",
  "discv5",

@@ -26,6 +26,7 @@ use lighthouse_network::{
 use message_receiver::{MessageReceiver, Outcome};
 use ssv_types::domain_type::DomainType;
 use subnet_tracker::{SubnetEvent, SubnetId};
+use tokio::sync::RwLock;
 use task_executor::TaskExecutor;
 use thiserror::Error;
 use tokio::sync::mpsc;

@@ -1,14 +1,14 @@
 mod config;
 mod router;
 
-use std::{net::SocketAddr, path::PathBuf, sync::Arc};
 pub use config::Config;
-use discv5::{libp2p_identity::PeerId};
 use database::NetworkState;
+use discv5::libp2p_identity::PeerId;
 use parking_lot::RwLock;
 use slot_clock::SlotClock;
-use task_executor::TaskExecutor;
 use std::collections::HashSet;
+use std::{net::SocketAddr, path::PathBuf, sync::Arc};
+use task_executor::TaskExecutor;
 use tokio::{net::TcpListener, sync::watch};
 use tracing::info;
 /// A wrapper around all the items required to spawn the HTTP server.
