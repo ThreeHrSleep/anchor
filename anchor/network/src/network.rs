@@ -19,6 +19,8 @@ use libp2p::{
     swarm::SwarmEvent,
     Multiaddr, PeerId, Swarm, SwarmBuilder, TransportError,
 };
+// use libp2p::metrics::Registry;
+use prometheus_client::registry::Registry;
 use lighthouse_network::{
     discovery::DiscoveredPeers,
     discv5::enr::k256::sha2::{Digest, Sha256},
@@ -99,6 +101,7 @@ impl<R: MessageReceiver> Network<R> {
         let transport = build_transport(local_keypair.clone(), !config.disable_quic_support)?;
 
         let behaviour = build_anchor_behaviour::<E>(local_keypair.clone(), config, spec).await?;
+        
 
         let peer_id = local_keypair.public().to_peer_id();
         let domain_type: String = config.domain_type.clone().into();
@@ -431,11 +434,15 @@ fn build_swarm(
     let swarm = SwarmBuilder::with_existing_identity(local_keypair)
         .with_tokio()
         .with_other_transport(|_key| transport)
-        .expect("infallible") // This operation can't fail because the error type is Infallible.
-        .with_behaviour(|_| behaviour)
-        .expect("infallible") // Again, this can't fail.
-        .with_swarm_config(|_| swarm_config)
-        .build();
+        .expect("infallible"); // This operation can't fail because the error type is Infallible.
 
-    Ok(swarm)
+    let mut registry = Registry::default();
+
+    let swarm_builder = swarm
+                            .with_bandwidth_metrics(&mut registry)
+                            .with_behaviour(|_| behaviour)
+                            .expect("infallible") // Again, this can't fail.
+                            .with_swarm_config(|_| swarm_config)
+                            .build();
+    Ok(swarm_builder)
 }
