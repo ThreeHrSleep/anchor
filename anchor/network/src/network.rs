@@ -19,7 +19,6 @@ use libp2p::{
     swarm::SwarmEvent,
     Multiaddr, PeerId, Swarm, SwarmBuilder, TransportError,
 };
-// use libp2p::metrics::Registry;
 use prometheus_client::registry::Registry;
 use lighthouse_network::{
     discovery::DiscoveredPeers,
@@ -101,6 +100,7 @@ impl<R: MessageReceiver> Network<R> {
         let transport = build_transport(local_keypair.clone(), !config.disable_quic_support)?;
 
         let behaviour = build_anchor_behaviour::<E>(local_keypair.clone(), config, spec).await?;
+        
         
 
         let peer_id = local_keypair.public().to_peer_id();

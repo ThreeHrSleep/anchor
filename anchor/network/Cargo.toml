@@ -40,7 +40,6 @@ tokio = { workspace = true }
 tracing = { workspace = true }
 types = { workspace = true }
 version = { workspace = true }
-libp2p-metrics = "0.16.0"
 prometheus-client = "0.22.3"
 
 [dev-dependencies]
