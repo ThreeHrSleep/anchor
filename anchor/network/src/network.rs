@@ -81,7 +81,7 @@ pub struct Network<R: MessageReceiver> {
     message_receiver: Arc<R>,
     outcome_rx: mpsc::Receiver<Outcome>,
     domain_type: DomainType,
-    libp2p_registry: Registry,
+    libp2p_registry: Option<Registry>,
 }
 
 impl<R: MessageReceiver> Network<R> {
@@ -130,7 +130,7 @@ impl<R: MessageReceiver> Network<R> {
             message_receiver,
             outcome_rx,
             domain_type: config.domain_type.clone(),
-            libp2p_registry: Registry::default(),
+            libp2p_registry: Some(Registry::default()),
         };
 
         info!(%peer_id, "Network starting");
@@ -364,10 +364,13 @@ impl<R: MessageReceiver> Network<R> {
             .with_dial_concurrency_factor(dial_concurrency_factor);
 
         
-        let swarm = SwarmBuilder::with_existing_identity(local_keypair)
+        let swarm_builder = SwarmBuilder::with_existing_identity(local_keypair)
             .with_tokio()
             .with_other_transport(|_key| transport)
-            .expect("infallible") // This operation can't fail because the error type is Infallible.
+            .expect("infallible") ; // This operation can't fail because the error type is Infallible.
+
+        let swarm = swarm_builder
+            .with_bandwidth_metrics(Box::new(libp2p_registry).as_mut())
             .with_behaviour(|_| behaviour)
             .expect("infallible") // Again, this can't fail.
             .with_swarm_config(|_| swarm_config)
