@@ -1861,6 +1861,7 @@ dependencies = [
  "http_metrics",
  "hyper 1.6.0",
  "keygen",
+ "lighthouse_network",
  "message_receiver",
  "message_sender",
  "message_validator",

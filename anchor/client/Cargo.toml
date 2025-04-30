@@ -28,6 +28,7 @@ message_validator = { workspace = true }
 multiaddr = { workspace = true }
 network = { workspace = true }
 openssl = { workspace = true }
+lighthouse_network = { workspace = true }
 parking_lot = { workspace = true }
 processor = { workspace = true }
 qbft = { workspace = true }

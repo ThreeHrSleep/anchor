@@ -129,6 +129,7 @@ impl Client {
             let shared_state = Arc::new(RwLock::new(http_metrics::Shared {
                 genesis_time: None,
                 duties_service: None,
+                gossipsub_registry: Some(std::sync::Mutex::new(lighthouse_network::prometheus_client::registry::Registry::default())),
             }));
 
             let exit = executor.exit();

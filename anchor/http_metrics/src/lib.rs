@@ -19,15 +19,16 @@ use axum::{
     routing::get,
     Router,
 };
+use lighthouse_network::prometheus_client::registry::Registry;
 use parking_lot::RwLock;
 use serde::{Deserialize, Serialize};
 use slot_clock::{SlotClock, SystemTimeSlotClock};
 use tokio::net::TcpListener;
 use tower_http::cors::{Any, CorsLayer};
 use tracing::error;
+use lighthouse_network::prometheus_client::encoding::text::encode;
 use types::EthSpec;
 use validator_services::duties_service::DutiesService;
-
 type ValidatorStore<E> = AnchorValidatorStore<SystemTimeSlotClock, E>;
 
 /// Contains objects which have shared access from inside/outside of the metrics server.
@@ -35,6 +36,7 @@ pub struct Shared<E: EthSpec> {
     /// If we know genesis, it is entered here.
     pub genesis_time: Option<u64>,
     pub duties_service: Option<Arc<DutiesService<ValidatorStore<E>, SystemTimeSlotClock>>>,
+    pub gossipsub_registry: Option<std::sync::Mutex<Registry>>,
 }
 
 /// Configuration for the HTTP server.
@@ -77,7 +79,7 @@ async fn metrics_handler<E: EthSpec>(
     // Use common lighthouse validator metrics
     use validator_metrics::*;
 
-    let mut buffer = vec![];
+    let mut buffer = String::new();
     let encoder = TextEncoder::new();
 
     {
@@ -118,16 +120,16 @@ async fn metrics_handler<E: EthSpec>(
     health_metrics::metrics::scrape_health_metrics();
     lighthouse_network::metrics::scrape_discovery_metrics();
 
-    encoder.encode(&metrics::gather(), &mut buffer).unwrap();
 
-    match String::from_utf8(buffer) {
-        Ok(v) => v.into_response(),
-        Err(e) => (
-            StatusCode::INTERNAL_SERVER_ERROR,
-            format!("Failed to encode promethus data: {}", e),
-        )
-            .into_response(),
+    encoder.encode_utf8(&metrics::gather(), &mut buffer).unwrap();
+
+    if let Some(registry) = &state.read().gossipsub_registry {
+        if let Ok(registry_locked) = registry.lock() {
+            let _ = encode(&mut buffer, &registry_locked);
+        }
     }
+    buffer.into_response()
+
 }
 
 /// Creates a server that will serve requests using information from `ctx`.

@@ -19,6 +19,7 @@ use libp2p::{
     swarm::SwarmEvent,
     Multiaddr, PeerId, Swarm, SwarmBuilder, TransportError,
 };
+use lighthouse_network::prometheus_client::registry::Registry;
 use lighthouse_network::{
     discovery::DiscoveredPeers,
     discv5::enr::k256::sha2::{Digest, Sha256},
@@ -80,6 +81,7 @@ pub struct Network<R: MessageReceiver> {
     message_receiver: Arc<R>,
     outcome_rx: mpsc::Receiver<Outcome>,
     domain_type: DomainType,
+    libp2p_registry: Registry,
 }
 
 impl<R: MessageReceiver> Network<R> {
@@ -111,13 +113,14 @@ impl<R: MessageReceiver> Network<R> {
                 subnets: "00000000000000000000000000000000".to_string(),
             }),
         );
-
+        let libp2p_registry = Registry::default();
         let mut network = Network {
-            swarm: build_swarm(
+            swarm: Self::build_swarm(
                 executor.clone(),
                 local_keypair,
                 transport,
                 behaviour,
+                libp2p_registry,
                 config,
             )?,
             subnet_event_receiver,
@@ -127,6 +130,7 @@ impl<R: MessageReceiver> Network<R> {
             message_receiver,
             outcome_rx,
             domain_type: config.domain_type.clone(),
+            libp2p_registry: Registry::default(),
         };
 
         info!(%peer_id, "Network starting");
@@ -332,6 +336,45 @@ impl<R: MessageReceiver> Network<R> {
             }
         }
     }
+
+    fn build_swarm(
+        executor: TaskExecutor,
+        local_keypair: Keypair,
+        transport: Boxed<(PeerId, StreamMuxerBox)>,
+        behaviour: AnchorBehaviour,
+        libp2p_registry: Registry,
+        _config: &Config,
+    ) -> Result<Swarm<AnchorBehaviour>, NetworkError> {
+        struct Executor(task_executor::TaskExecutor);
+        impl libp2p::swarm::Executor for Executor {
+            fn exec(&self, f: Pin<Box<dyn futures::Future<Output = ()> + Send>>) {
+                self.0.spawn(f, "libp2p");
+            }
+        }
+
+        let notify_handler_buffer_size = NonZeroUsize::new(7)
+            .ok_or_else(|| SwarmConfig("notify_handler_buffer_size must be > 0".to_string()))?;
+
+        let dial_concurrency_factor = NonZeroU8::new(1)
+            .ok_or_else(|| SwarmConfig("dial_concurrency_factor cannot be 0".to_string()))?;
+
+        let swarm_config = libp2p::swarm::Config::with_executor(Executor(executor))
+            .with_notify_handler_buffer_size(notify_handler_buffer_size)
+            .with_per_connection_event_buffer_size(4)
+            .with_dial_concurrency_factor(dial_concurrency_factor);
+
+        
+        let swarm = SwarmBuilder::with_existing_identity(local_keypair)
+            .with_tokio()
+            .with_other_transport(|_key| transport)
+            .expect("infallible") // This operation can't fail because the error type is Infallible.
+            .with_behaviour(|_| behaviour)
+            .expect("infallible") // Again, this can't fail.
+            .with_swarm_config(|_| swarm_config)
+            .build();
+
+        Ok(swarm)
+    }
 }
 
 fn subnet_to_topic(subnet: SubnetId) -> IdentTopic {
@@ -399,43 +442,4 @@ async fn build_anchor_behaviour<E: EthSpec>(
         peer_manager,
         handshake,
     })
-}
-
-fn build_swarm(
-    executor: TaskExecutor,
-    local_keypair: Keypair,
-    transport: Boxed<(PeerId, StreamMuxerBox)>,
-    behaviour: AnchorBehaviour,
-    _config: &Config,
-) -> Result<Swarm<AnchorBehaviour>, NetworkError> {
-    struct Executor(task_executor::TaskExecutor);
-    impl libp2p::swarm::Executor for Executor {
-        fn exec(&self, f: Pin<Box<dyn futures::Future<Output = ()> + Send>>) {
-            self.0.spawn(f, "libp2p");
-        }
-    }
-
-    let notify_handler_buffer_size = NonZeroUsize::new(7)
-        .ok_or_else(|| SwarmConfig("notify_handler_buffer_size must be > 0".to_string()))?;
-
-    let dial_concurrency_factor = NonZeroU8::new(1)
-        .ok_or_else(|| SwarmConfig("dial_concurrency_factor cannot be 0".to_string()))?;
-
-    let swarm_config = libp2p::swarm::Config::with_executor(Executor(executor))
-        .with_notify_handler_buffer_size(notify_handler_buffer_size)
-        .with_per_connection_event_buffer_size(4)
-        .with_dial_concurrency_factor(dial_concurrency_factor);
-
-    // TODO Add metrics later
-    // https://github.com/sigp/anchor/issues/256
-    let swarm = SwarmBuilder::with_existing_identity(local_keypair)
-        .with_tokio()
-        .with_other_transport(|_key| transport)
-        .expect("infallible") // This operation can't fail because the error type is Infallible.
-        .with_behaviour(|_| behaviour)
-        .expect("infallible") // Again, this can't fail.
-        .with_swarm_config(|_| swarm_config)
-        .build();
-
-    Ok(swarm)
 }
