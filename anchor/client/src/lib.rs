@@ -25,7 +25,9 @@ use eth2::{
     reqwest::{Certificate, ClientBuilder},
     BeaconNodeHttpClient, Timeouts,
 };
+use http_api::Shared;
 use keygen::{encryption::decrypt, run_keygen, Keygen};
+use lighthouse_network::libp2p::metrics::Registry;
 use message_receiver::NetworkMessageReceiver;
 use message_sender::{impostor::ImpostorMessageSender, MessageSender, NetworkMessageSender};
 use message_validator::{DutiesTracker, Validator};
@@ -457,6 +459,7 @@ impl Client {
 
         // Start the p2p network
         let network = Network::try_new::<E>(
+            &mut Registry::default(),
             &config.network,
             subnet_tracker,
             network_rx,

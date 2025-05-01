@@ -88,6 +88,7 @@ impl<R: MessageReceiver> Network<R> {
     // Creates an instance of the Network struct to start sending and receiving information on the
     // p2p network.
     pub async fn try_new<E: EthSpec>(
+        libp2p_registry: &mut Registry,
         config: &Config,
         subnet_event_receiver: mpsc::Receiver<SubnetEvent>,
         message_rx: mpsc::Receiver<(SubnetId, Vec<u8>)>,
@@ -100,7 +101,7 @@ impl<R: MessageReceiver> Network<R> {
 
         let transport = build_transport(local_keypair.clone(), !config.disable_quic_support)?;
 
-        let behaviour = build_anchor_behaviour::<E>(local_keypair.clone(), config, spec).await?;
+        let behaviour = Self::build_anchor_behaviour::<E>(libp2p_registry, local_keypair.clone(), config, spec).await?;
 
         let peer_id = local_keypair.public().to_peer_id();
         let domain_type: String = config.domain_type.clone().into();
@@ -378,71 +379,76 @@ impl<R: MessageReceiver> Network<R> {
 
         Ok(swarm)
     }
+
+    async fn build_anchor_behaviour<E: EthSpec>(
+        libp2p_registry: &mut Registry,
+        local_keypair: Keypair,
+        network_config: &Config,
+        spec: &ChainSpec,
+    ) -> Result<AnchorBehaviour, NetworkError> {
+        let identify = {
+            let local_public_key = local_keypair.public();
+            let identify_config = identify::Config::new("anchor".into(), local_public_key)
+                .with_agent_version(version::version_with_platform())
+                .with_cache_size(0);
+            identify::Behaviour::new(identify_config)
+        };
+    
+        let slots_per_epoch = E::slots_per_epoch();
+        let seconds_per_slot = spec.seconds_per_slot;
+        let duplicate_cache_time = Duration::from_secs(slots_per_epoch * seconds_per_slot); // 6.4 min
+    
+        let gossip_message_id = move |message: &gossipsub::Message| {
+            gossipsub::MessageId::from(&Sha256::digest(&message.data)[..20])
+        };
+    
+        let config = gossipsub::ConfigBuilder::default()
+            .duplicate_cache_time(duplicate_cache_time)
+            .message_id_fn(gossip_message_id)
+            .flood_publish(false)
+            .validation_mode(ValidationMode::Permissive)
+            .mesh_n(8) // D
+            .mesh_n_low(6) // Dlo
+            .mesh_n_high(12) // Dhi
+            .mesh_outbound_min(4) // Dout
+            .heartbeat_interval(Duration::from_millis(700))
+            .history_length(6)
+            .history_gossip(4)
+            .max_ihave_length(1500)
+            .max_ihave_messages(32)
+            .validate_messages()
+            .build()?;
+        
+        let gossipsub_metrics = libp2p_registry.sub_registry_with_prefix("gossipsub");
+    
+        let gossipsub = gossipsub::Behaviour::new_with_metrics(MessageAuthenticity::RandomAuthor, config, gossipsub_metrics,gossipsub::MetricsConfig::default())
+            .map_err(|e| Gossipsub(e.to_string()))?;
+    
+        let discovery = {
+            // Build and start the discovery sub-behaviour
+            let mut discovery = Discovery::new(local_keypair.clone(), network_config).await?;
+            // start searching for peers
+            discovery.discover_peers(FIND_NODE_QUERY_CLOSEST_PEERS);
+            discovery
+        };
+    
+        let peer_manager = PeerManager::new(network_config);
+    
+        let handshake = handshake::create_behaviour(local_keypair);
+    
+        Ok(AnchorBehaviour {
+            identify,
+            ping: ping::Behaviour::default(),
+            gossipsub,
+            discovery,
+            peer_manager,
+            handshake,
+        })
+    }
 }
 
 fn subnet_to_topic(subnet: SubnetId) -> IdentTopic {
     IdentTopic::new(format!("ssv.v2.{}", *subnet))
 }
 
-async fn build_anchor_behaviour<E: EthSpec>(
-    local_keypair: Keypair,
-    network_config: &Config,
-    spec: &ChainSpec,
-) -> Result<AnchorBehaviour, NetworkError> {
-    let identify = {
-        let local_public_key = local_keypair.public();
-        let identify_config = identify::Config::new("anchor".into(), local_public_key)
-            .with_agent_version(version::version_with_platform())
-            .with_cache_size(0);
-        identify::Behaviour::new(identify_config)
-    };
 
-    let slots_per_epoch = E::slots_per_epoch();
-    let seconds_per_slot = spec.seconds_per_slot;
-    let duplicate_cache_time = Duration::from_secs(slots_per_epoch * seconds_per_slot); // 6.4 min
-
-    let gossip_message_id = move |message: &gossipsub::Message| {
-        gossipsub::MessageId::from(&Sha256::digest(&message.data)[..20])
-    };
-
-    let config = gossipsub::ConfigBuilder::default()
-        .duplicate_cache_time(duplicate_cache_time)
-        .message_id_fn(gossip_message_id)
-        .flood_publish(false)
-        .validation_mode(ValidationMode::Permissive)
-        .mesh_n(8) // D
-        .mesh_n_low(6) // Dlo
-        .mesh_n_high(12) // Dhi
-        .mesh_outbound_min(4) // Dout
-        .heartbeat_interval(Duration::from_millis(700))
-        .history_length(6)
-        .history_gossip(4)
-        .max_ihave_length(1500)
-        .max_ihave_messages(32)
-        .validate_messages()
-        .build()?;
-
-    let gossipsub = gossipsub::Behaviour::new(MessageAuthenticity::RandomAuthor, config)
-        .map_err(|e| Gossipsub(e.to_string()))?;
-
-    let discovery = {
-        // Build and start the discovery sub-behaviour
-        let mut discovery = Discovery::new(local_keypair.clone(), network_config).await?;
-        // start searching for peers
-        discovery.discover_peers(FIND_NODE_QUERY_CLOSEST_PEERS);
-        discovery
-    };
-
-    let peer_manager = PeerManager::new(network_config);
-
-    let handshake = handshake::create_behaviour(local_keypair);
-
-    Ok(AnchorBehaviour {
-        identify,
-        ping: ping::Behaviour::default(),
-        gossipsub,
-        discovery,
-        peer_manager,
-        handshake,
-    })
-}
