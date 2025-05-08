@@ -458,7 +458,7 @@ impl<R: MessageReceiver> Network<R> {
             .expect("infallible"); // This operation can't fail because the error type is Infallible.
             
         let swarm= swarm_builder
-            .with_bandwidth_metrics(&mut libp2p_registry.unwrap())
+            .with_bandwidth_metrics(&mut lighthouse_network::prometheus_client::registry::Registry::default())
             .with_behaviour(|_| behaviour)
             .expect("infallible") // Again, this can't fail.
             .with_swarm_config(|_| swarm_config)
