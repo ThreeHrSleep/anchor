@@ -12,13 +12,13 @@ use gossipsub::{
 };
 use http_metrics::Shared;
 use libp2p::{
-    core::{muxing::StreamMuxerBox, transport::Boxed, ConnectedPoint},
+    Multiaddr, PeerId, Swarm, SwarmBuilder, TransportError,
+    core::{ConnectedPoint, muxing::StreamMuxerBox, transport::Boxed},
     futures, identify,
     identity::Keypair,
     multiaddr::Protocol,
     ping,
     swarm::SwarmEvent,
-    Multiaddr, PeerId, Swarm, SwarmBuilder, TransportError,
 };
 use lighthouse_network::{
     discovery::DiscoveredPeers,
@@ -35,6 +35,7 @@ use types::{ChainSpec, EthSpec};
 use version::version_with_platform;
 
 use crate::{
+    Config, Enr,
     behaviour::{AnchorBehaviour, AnchorBehaviourEvent},
     discovery::{Discovery, DiscoveryError, FIND_NODE_QUERY_CLOSEST_PEERS},
     handshake,
@@ -44,7 +45,6 @@ use crate::{
     peer_manager,
     peer_manager::{ConnectActions, PeerManager},
     transport::build_transport,
-    Config, Enr,
 };
 
 use std::sync::LazyLock;
