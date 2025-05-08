@@ -122,6 +122,31 @@ async fn metrics_handler<E: EthSpec>(
 
     encoder.encode(&metrics::gather(), &mut buffer).unwrap();
 
+    let shared = state.read();
+    
+    if let Some(registry) = &shared.gossipsub_registry {
+        if let Ok(reg) = registry.lock() {
+            let mut tmp = String::new();
+            lighthouse_network::prometheus_client::encoding::text::encode(
+                &mut tmp,
+                &*reg,
+            )
+            .unwrap();
+    
+            buffer.extend_from_slice(tmp.as_bytes());
+        }
+    }
+    
+    // if let Some(registry) = ctx.gossipsub_registry.as_ref() {
+    //     if let Ok(registry_locked) = registry.lock() {
+    //         let _ = encode(&mut buffer, &registry_locked);
+    //     }
+    // }
+
+    // Ok(buffer)
+
+    
+
     match String::from_utf8(buffer) {
         Ok(v) => v.into_response(),
         Err(e) => (
