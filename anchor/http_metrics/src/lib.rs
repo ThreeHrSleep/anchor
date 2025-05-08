@@ -27,6 +27,7 @@ use tower_http::cors::{Any, CorsLayer};
 use tracing::error;
 use types::EthSpec;
 use validator_services::duties_service::DutiesService;
+use lighthouse_network::prometheus_client::registry::Registry;
 
 type ValidatorStore<E> = AnchorValidatorStore<SystemTimeSlotClock, E>;
 
@@ -35,6 +36,7 @@ pub struct Shared<E: EthSpec> {
     /// If we know genesis, it is entered here.
     pub genesis_time: Option<u64>,
     pub duties_service: Option<Arc<DutiesService<ValidatorStore<E>, SystemTimeSlotClock>>>,
+    pub gossipsub_registry:  Option<Arc<std::sync::Mutex<Registry>>>,
 }
 
 /// Configuration for the HTTP server.
