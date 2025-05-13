@@ -395,13 +395,13 @@ async fn build_anchor_behaviour<E: EthSpec>(
     let mut libp2p_registry = lighthouse_network::prometheus_client::registry::Registry::default();
     let gossipsub_metrics = libp2p_registry.sub_registry_with_prefix("gossipsub");
 
-    let gossipsub = gossipsub::Behaviour::new_with_metrics(
-        MessageAuthenticity::RandomAuthor,
-        config,
+        let gossipsub = gossipsub::Behaviour::new_with_metrics(
+            MessageAuthenticity::RandomAuthor,
+         config,
         gossipsub_metrics,
-        gossipsub::MetricsConfig::default(),
-    )
-    .map_err(|e| Gossipsub(e.to_string()))?;
+         gossipsub::MetricsConfig::default(),
+        )
+        .map_err(|e| Gossipsub(e.to_string()))?;
 
     let discovery = {
         // Build and start the discovery sub-behaviour
@@ -457,12 +457,12 @@ fn build_swarm(
         .with_tokio()
         .with_other_transport(|_key| transport)
         .expect("infallible"); // This operation can't fail because the error type is Infallible.
-        
+    
     let swarm= swarm_builder
         .with_bandwidth_metrics(&mut lighthouse_network::prometheus_client::registry::Registry::default())
-        .with_behaviour(|_| behaviour)
+            .with_behaviour(|_| behaviour)
         .expect("infallible") // Again, this can't fail.
-        .with_swarm_config(|_| swarm_config)
+            .with_swarm_config(|_| swarm_config)
         .build();
 
     Ok(swarm)
