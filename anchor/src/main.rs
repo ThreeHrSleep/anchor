@@ -194,7 +194,7 @@ fn enable_logging(anchor_config: &Node) -> (Option<WorkerGuard>, Option<Libp2pDi
         compression: cli.logfile_compression,
     };
 
-    let workspace_filter = match build_workspace_filter() {
+    let workspace_filter = match build_workspace_filter(cli.allow_dep_logs.clone()) {
         Ok(filter) => filter,
         Err(e) => {
             eprintln!("Unable to build workspace filter: {e}");

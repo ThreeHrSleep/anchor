@@ -114,6 +114,9 @@ pub struct LoggingFlags {
 
     #[arg(long, global = true, help = "Enables colors in logfile.")]
     pub logfile_color: bool,
+
+    #[arg(long, global = true,value_delimiter = ',', help = "Allows logs from dependencies.")]
+    pub allow_dep_logs: Vec<String>,
 }
 
 pub struct LoggingLayer {
