@@ -1591,6 +1591,7 @@ dependencies = [
 name = "bls_lagrange"
 version = "0.1.0"
 dependencies = [
+ "arbitrary",
  "bls",
  "blst",
  "blstrs_plus",
