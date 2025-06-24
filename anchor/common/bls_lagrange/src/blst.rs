@@ -13,6 +13,7 @@ use rand::prelude::*;
 use crate::{random_key, Error};
 
 #[derive(Debug, Clone)]
+#[cfg_attr(feature = "arbitrary-fuzz", derive(arbitrary::Arbitrary))]
 pub struct KeyId {
     num: u64,
     // note: while blst_scalar is also used for bls keys, the scalars used in key ids are NOT
