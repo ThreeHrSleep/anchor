@@ -9,6 +9,7 @@ blsful = ["dep:blstrs_plus", "dep:vsss-rs"]
 blst = ["dep:blst"]
 blst_single_thread = ["blst"]
 arbitrary-fuzz = ["arbitrary"]
+fuzzing = []
 
 [dependencies]
 arbitrary = { workspace = true, optional = true }
