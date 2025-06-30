@@ -47,7 +47,7 @@ impl<S: SlotClock + 'static, D: DutiesProvider> MessageSender for Arc<NetworkMes
             .urgent_consensus
             .send_blocking(
                 move || {
-                    let signature = match sender.sign(&message) {
+                    let signature = match sender.sign(&message) {//@audit meow
                         Ok(signature) => signature,
                         Err(err) => {
                             error!(?err, "Signing message failed!");
@@ -141,7 +141,7 @@ impl<S: SlotClock, D: DutiesProvider> NetworkMessageSender<S, D> {
         }
     }
 
-    fn sign(&self, message: &UnsignedSSVMessage) -> Result<Vec<u8>, ErrorStack> {
+    fn sign(&self, message: &UnsignedSSVMessage) -> Result<Vec<u8>, ErrorStack> {//@audit meow
         let serialized = message.ssv_message.as_ssz_bytes();
         let mut signer = Signer::new(MessageDigest::sha256(), &self.private_key)?;
         signer.update(&serialized)?;
