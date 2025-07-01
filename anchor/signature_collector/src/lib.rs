@@ -540,7 +540,7 @@ async fn signature_collector(mut rx: mpsc::UnboundedReceiver<CollectorMessage>) 
     }
 }
 
-fn combine_signatures(
+pub fn combine_signatures(
     shares: HashMap<OperatorId, Signature>,
 ) -> Result<Signature, CollectionError> {
     let (ids, signatures): (Vec<_>, Vec<_>) = shares
