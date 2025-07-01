@@ -16,7 +16,7 @@ use crate::{
 // Constants for validation rules
 const MAX_SIGNATURES_IN_SYNC_COMMITTEE: usize = 13;
 
-pub(crate) fn validate_partial_signature_message(
+pub fn validate_partial_signature_message(
     validation_context: ValidationContext<impl SlotClock>,
     duty_state: &mut DutyState,
     duty_provider: Arc<impl DutiesProvider>,
