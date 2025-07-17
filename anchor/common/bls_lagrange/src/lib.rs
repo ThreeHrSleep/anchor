@@ -1,4 +1,4 @@
-use bls::{Hash256, SecretKey};
+use bls::{SecretKey};
 use rand::prelude::*;
 
 #[cfg(feature = "blst")]
@@ -39,51 +39,10 @@ pub fn random_key(rng: &mut (impl CryptoRng + Rng)) -> Result<SecretKey, Error> 
     Ok(SecretKey::from_point(&sk))
 }
 
-#[cfg(any(test, feature = "fuzzing"))]
-pub fn test_basic(rng: &mut (impl CryptoRng + Rng)) {
-    let total = rng.gen_range(2..=13);
-    let threshold = rng.gen_range(2..=total);
+#[cfg(fuzzing)]
+pub use self::tests::test_basic;
 
-    let master = random_key(rng).unwrap();
-    let pk = master.public_key();
-
-    let mut keys = split_with_rng(
-        &master,
-        threshold as u64,
-        (1..=total).map(|x| KeyId::try_from(x as u64).unwrap()),
-        rng,
-    )
-    .unwrap();
-
-    // shuffle to sign with varying key indices
-    keys.shuffle(rng);
-
-    let (ids, keys): (Vec<_>, Vec<_>) = keys.into_iter().unzip();
-
-    assert_eq!(keys.len(), total);
-
-    let mut data = [0u8; 32];
-    rng.fill(&mut data);
-
-    let signers = rng.gen_range(2..=total);
-
-    let signatures = keys
-        .into_iter()
-        .take(signers)
-        .map(|key| key.sign(Hash256::from(data)))
-        .collect::<Vec<_>>();
-
-    let combined = combine_signatures(&signatures, &ids[..signers]).unwrap();
-
-    let result = combined.verify(&pk, data.into());
-    if signers >= threshold {
-        assert!(result);
-    } else {
-        assert!(!result);
-    }
-}
-
-#[cfg(test)]
+#[cfg(any(test, fuzzing))]
 mod tests {
     use std::{hint::black_box, mem, time::Instant};
 
@@ -91,6 +50,49 @@ mod tests {
     use bls::{Hash256, Signature};
 
     use super::*;
+
+    pub fn test_basic(rng: &mut (impl CryptoRng + Rng)) {
+        let total = rng.gen_range(2..=13);
+        let threshold = rng.gen_range(2..=total);
+
+        let master = random_key(rng).unwrap();
+        let pk = master.public_key();
+
+        let mut keys = split_with_rng(
+            &master,
+            threshold as u64,
+            (1..=total).map(|x| KeyId::try_from(x as u64).unwrap()),
+            rng,
+        )
+        .unwrap();
+
+        // shuffle to sign with varying key indices
+        keys.shuffle(rng);
+
+        let (ids, keys): (Vec<_>, Vec<_>) = keys.into_iter().unzip();
+
+        assert_eq!(keys.len(), total);
+
+        let mut data = [0u8; 32];
+        rng.fill(&mut data);
+
+        let signers = rng.gen_range(2..=total);
+
+        let signatures = keys
+            .into_iter()
+            .take(signers)
+            .map(|key| key.sign(Hash256::from(data)))
+            .collect::<Vec<_>>();
+
+        let combined = combine_signatures(&signatures, &ids[..signers]).unwrap();
+
+        let result = combined.verify(&pk, data.into());
+        if signers >= threshold {
+            assert!(result);
+        } else {
+            assert!(!result);
+        }
+    }
 
     #[test]
     fn test_basic_often() {
