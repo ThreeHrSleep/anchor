@@ -381,6 +381,10 @@ impl<S: SlotClock, D: DutiesProvider> Validator<S, D> {
                 DutyState::new(stored_slot_count as usize)
             })
     }
+
+    pub fn reset_duty_state(&self) {
+        self.duty_state_map.clear();
+    }
 }
 
 fn validate_ssv_message(
