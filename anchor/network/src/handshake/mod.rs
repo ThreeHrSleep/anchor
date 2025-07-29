@@ -1,5 +1,5 @@
 mod codec;
-mod envelope;
+pub mod envelope;
 pub mod node_info;
 
 use discv5::libp2p_identity::Keypair;
