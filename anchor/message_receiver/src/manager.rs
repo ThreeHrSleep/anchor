@@ -73,7 +73,7 @@ impl<S: SlotClock + 'static, D: DutiesProvider> MessageReceiver
                 if let Err(err) = receiver.outcome_tx.try_send(Outcome {
                     message_id: message_id.clone(),
                     propagation_source,
-                    action: MessageAcceptance::from(&result),
+                    // action: MessageAcceptance::from(&result),
                 }) {
                     match err {
                         TrySendError::Closed(_) => {

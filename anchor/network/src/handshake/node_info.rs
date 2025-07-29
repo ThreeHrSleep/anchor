@@ -62,7 +62,7 @@ impl NodeInfo {
     pub(crate) const CODEC: &'static [u8] = b"ssv/nodeinfo";
 
     /// Serialize `NodeInfo` to JSON bytes.
-    fn marshal(&self) -> Result<Vec<u8>, Error> {
+    fn marshal(&self) -> Result<Vec<u8>, Error> {//@audit diff fuzzable with MarshalRecord go?
         let mut entries = vec![
             "".to_string(),                           // formerly forkVersion, now deprecated
             format!("0x{}", self.network_id.clone()), // network id
@@ -79,7 +79,7 @@ impl NodeInfo {
     }
 
     /// Deserialize `NodeInfo` from JSON bytes, replacing `self`.
-    pub fn unmarshal(data: &[u8]) -> Result<NodeInfo, Error> {
+    pub fn unmarshal(data: &[u8]) -> Result<NodeInfo, Error> {//@audit fuzzable?
         let ser: Serializable = serde_json::from_slice(data)?;
         if ser.entries.len() < 2 {
             return Err(Validation("node info must have at least 2 entries".into()));
@@ -105,7 +105,7 @@ impl NodeInfo {
     ///  2) building "unsigned" data (domain + codec + payload),
     ///  3) signing,
     ///  4) storing into `Envelope`.
-    pub fn seal(&self, keypair: &Keypair) -> Result<Envelope, Error> {
+    pub fn seal(&self, keypair: &Keypair) -> Result<Envelope, Error> {//@audit diff fuzzable
         let domain = Self::DOMAIN;
         let payload_type = Self::CODEC;
 

@@ -383,7 +383,7 @@ where
     }
 
     /// Receive a new message from the network
-    pub fn receive(&mut self, wrapped_msg: WrappedQbftMessage) {
+    pub fn receive(&mut self, wrapped_msg: WrappedQbftMessage) {//@audit fuzzing covered
         // Perform base qbft releveant verification on the message
         let Some((Some(valid_data), signer)) = self.validate_message(&wrapped_msg) else {
             return;
@@ -735,7 +735,7 @@ where
     }
 
     // Aggregate a quorum of commit messages into one signed message
-    fn aggregate_commit_messages(
+    fn aggregate_commit_messages(//@audit-info looks diff fuzzable  /
         &self,
         commit_quorum: Vec<WrappedQbftMessage>,
     ) -> Option<SignedSSVMessage> {
@@ -899,7 +899,7 @@ where
 
     // Construct a new unsigned message. This will be passed to the processor to be signed and then
     // sent on the network
-    fn new_unsigned_message(
+    fn new_unsigned_message(//@audit multi targets , can map to CreatePrepare,CreateProposal,CreateRoundChange .. but need to sign first?
         &self,
         msg_type: QbftMessageType,
         data_hash: D::Hash,
