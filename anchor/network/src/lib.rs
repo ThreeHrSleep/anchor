@@ -3,7 +3,7 @@
 mod behaviour;
 mod config;
 mod discovery;
-mod handshake;
+pub mod handshake;
 mod keypair_utils;
 mod network;
 mod peer_manager;
