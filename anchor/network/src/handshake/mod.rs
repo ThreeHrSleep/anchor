@@ -56,7 +56,7 @@ pub fn create_behaviour(keypair: Keypair) -> Behaviour {
     )
 }
 
-fn verify_node_info(ours: &NodeInfo, theirs: &NodeInfo) -> Result<(), Error> {
+fn verify_node_info(ours: &NodeInfo, theirs: &NodeInfo) -> Result<(), Error> {//@audit looks fuzzable
     if ours.network_id != theirs.network_id {
         return Err(Error::NetworkMismatch {
             ours: ours.network_id.clone(),
