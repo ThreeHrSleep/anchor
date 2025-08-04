@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 use serde_json;
 use subnet_service::{SubnetBits, SubnetId};
 use thiserror::Error;
+use arbitrary::Arbitrary;
 
 use crate::handshake::{
     envelope::{Envelope, make_unsigned},
@@ -21,7 +22,7 @@ pub enum Error {
     Validation(String),
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, Default, PartialEq)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default, PartialEq, Arbitrary)]
 pub struct NodeMetadata {
     #[serde(rename = "NodeVersion")]
     pub node_version: String,
@@ -33,7 +34,7 @@ pub struct NodeMetadata {
     pub subnets: String,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, Default, PartialEq)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default, PartialEq,Arbitrary)]
 pub struct NodeInfo {
     pub network_id: String,
     pub metadata: Option<NodeMetadata>,
