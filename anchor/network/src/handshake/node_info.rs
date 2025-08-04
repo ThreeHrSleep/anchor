@@ -34,7 +34,8 @@ pub struct NodeMetadata {
     pub subnets: String,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, Default, PartialEq,Arbitrary)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default, PartialEq)]
+#[cfg_attr(feature = "arbitrary-fuzz", derive(arbitrary::Arbitrary))]
 pub struct NodeInfo {
     pub network_id: String,
     pub metadata: Option<NodeMetadata>,
