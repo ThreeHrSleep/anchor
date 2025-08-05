@@ -39,10 +39,10 @@ pub fn random_key(rng: &mut (impl CryptoRng + Rng)) -> Result<SecretKey, Error> 
     Ok(SecretKey::from_point(&sk))
 }
 
-#[cfg(fuzzing)]
+#[cfg(feature = "arbitrary-fuzz")]
 pub use self::tests::test_basic;
 
-#[cfg(any(test, fuzzing))]
+#[cfg(any(test, feature = "arbitrary-fuzz"))]
 mod tests {
     use std::{hint::black_box, mem, time::Instant};
 
