@@ -4,8 +4,11 @@ version = "0.1.0"
 edition = { workspace = true }
 authors = ["Sigma Prime <contact@sigmaprime.io>"]
 
+[features]
+arbitrary-fuzz = ["arbitrary"]
+
 [dependencies]
-arbitrary = { workspace = true }
+arbitrary = { workspace = true, optional = true }
 async-trait = "0.1.85"
 dirs = { workspace = true }
 discv5 = { workspace = true }
@@ -47,6 +50,3 @@ libp2p-swarm-test = "0.5.0"
 message_receiver = { workspace = true }
 tokio = { workspace = true, features = ["rt", "macros", "time"] }
 tracing-subscriber = { workspace = true }
-
-[features]
-fuzzing = []

@@ -3,7 +3,6 @@ use serde::{Deserialize, Serialize};
 use serde_json;
 use subnet_service::{SubnetBits, SubnetId};
 use thiserror::Error;
-use arbitrary::Arbitrary;
 
 use crate::handshake::{
     envelope::{Envelope, make_unsigned},
@@ -22,7 +21,8 @@ pub enum Error {
     Validation(String),
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, Default, PartialEq, Arbitrary)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default, PartialEq)]
+#[cfg_attr(feature = "arbitrary-fuzz", derive(arbitrary::Arbitrary))]
 pub struct NodeMetadata {
     #[serde(rename = "NodeVersion")]
     pub node_version: String,
